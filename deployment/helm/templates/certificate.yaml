@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "annotation-admission-controller.fullname" . }}
+  labels:
+    {{- include "annotation-admission-controller.labels" . | nindent 4 }}
+spec:
+  duration: "8760h0m0s"
+  commonName: {{ include "annotation-admission-controller.fullname" . }}.{{ .Release.Namespace }}.svc
+  dnsNames:
+  - {{ include "annotation-admission-controller.fullname" . }}.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain }}
+  - {{ include "annotation-admission-controller.fullname" . }}.{{ .Release.Namespace }}.svc
+  issuerRef:
+    kind: Issuer
+    name: {{ include "annotation-admission-controller.fullname" . }}
+  secretName: {{ include "annotation-admission-controller.fullname" . }}-cert

@@ -1,0 +1,8 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: {{ include "annotation-admission-controller.fullname" . }}
+  labels:
+    {{- include "annotation-admission-controller.labels" . | nindent 4 }}
+spec:
+  selfSigned: {}
