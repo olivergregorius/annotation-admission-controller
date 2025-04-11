@@ -1,12 +1,12 @@
 FROM python:3.13-alpine3.21
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-WORKDIR /app
+WORKDIR /server
 
 COPY requirements.txt .
-COPY app .
+COPY app app
 
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
