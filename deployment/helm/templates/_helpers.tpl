@@ -49,3 +49,14 @@ Selector labels
 app.kubernetes.io/name: {{ include "annotation-admission-controller.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{/*
+Annotations to apply as comma-separated string: "key1:value1,key2:value2,..."
+*/}}
+{{- define "annotations-to-apply" -}}
+{{- $list := list -}}
+{{- range $k, $v := .Values.annotate.annotations -}}
+{{- $list = append $list (printf "%s:%s" $k $v) -}}
+{{- end -}}
+{{ join "," $list }}
+{{- end -}}
