@@ -17,11 +17,11 @@ class Patch:
         self.value = value
 
     def toJson(self) -> str:
-        return json.dumps({
+        return json.dumps([{
             'op': self.op,
             'path': self.path,
             'value': self.value
-        })
+        }])
 
 class MutationService:
 
