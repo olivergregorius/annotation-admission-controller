@@ -3,6 +3,7 @@ import logging
 from unittest.mock import patch
 
 
+logging.basicConfig(format="[%(asctime)s] %(levelname)s: %(message)s")
 mutations = logging.getLogger(__name__)
 mutations.setLevel(logging.INFO)
 

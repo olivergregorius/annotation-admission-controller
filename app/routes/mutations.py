@@ -11,6 +11,7 @@ from app.services.mutationservice import MutationService
 
 router = APIRouter()
 
+logging.basicConfig(format="[%(asctime)s] %(levelname)s: %(message)s")
 mutations = logging.getLogger(__name__)
 mutations.setLevel(logging.INFO)
 
