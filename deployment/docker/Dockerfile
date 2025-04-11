@@ -12,4 +12,4 @@ RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 EXPOSE 8443
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8443", "--ssl-certfile=/tls/tls.crt", "--ssl-keyfile=/tls/tls.key"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8443", "--ssl-certfile=/tls/tls.crt", "--ssl-keyfile=/tls/tls.key", "--log-level", "warning"]
