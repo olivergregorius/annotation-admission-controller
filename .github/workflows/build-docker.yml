@@ -1,14 +1,14 @@
 name: Build Docker Image
 
-env:
-  DOCKER_PROPERTIES_FILE: 'deployment/docker/properties.yml'
-
 on:
   push:
     branches:
       - main
     paths:
-      - ${{env.DOCKER_PROPERTIES_FILE}}
+      - 'deployment/docker/properties.yml'
+
+env:
+  DOCKER_PROPERTIES_FILE: 'deployment/docker/properties.yml'
 
 jobs:
   docker-build:
