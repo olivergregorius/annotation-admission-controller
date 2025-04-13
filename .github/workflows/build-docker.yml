@@ -1,9 +1,14 @@
 name: Build Docker Image
 
+env:
+  DOCKER_PROPERTIES_FILE: 'deployment/docker/properties.yml'
+
 on:
-  release:
-    types:
-      - published
+  push:
+    branches:
+      - main
+    paths:
+      - ${{env.DOCKER_PROPERTIES_FILE}}
 
 jobs:
   docker-build:
@@ -25,11 +30,19 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Parse properties.yml
+        id: image-data
+        run: |
+          echo registry=$(yq -r .registry "${{env.DOCKER_PROPERTIES_FILE}}") >> $GITHUB_OUTPUT
+          echo repository=$(yq -r .repository "${{env.DOCKER_PROPERTIES_FILE}}") >> $GITHUB_OUTPUT
+          echo tag=$(yq -r .tag "${{env.DOCKER_PROPERTIES_FILE}}") >> $GITHUB_OUTPUT
+          echo platforms=$(yq -r .platforms "${{env.DOCKER_PROPERTIES_FILE}}") >> $GITHUB_OUTPUT
+
       - name: Build And Push Docker Image
         uses: docker/build-push-action@v5
         with:
           context: .
           file: deployment/docker/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          platforms: ${{ steps.image-data.outputs.platforms }}
           push: true
-          tags: ghcr.io/olivergregorius/annotation-admission-controller:${{ github.ref_name }},ghcr.io/olivergregorius/annotation-admission-controller:latest
+          tags: ${{ steps.image-data.outputs.registry }}/${{ steps.image-data.outputs.repository }}:${{ steps.image-data.outputs.tag }},${{ steps.image-data.outputs.registry }}/${{ steps.image-data.outputs.repository }}:latest
