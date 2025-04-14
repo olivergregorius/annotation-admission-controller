@@ -1,11 +1,10 @@
 import json
 import logging
-from unittest.mock import patch
-
 
 logging.basicConfig(format="[%(asctime)s] %(levelname)s: %(message)s")
 mutations = logging.getLogger(__name__)
 mutations.setLevel(logging.INFO)
+
 
 class Patch:
     op: str
@@ -24,14 +23,14 @@ class Patch:
             'value': self.value
         }])
 
-class MutationService:
 
+class MutationService:
     def annotate(self, object: dict, annotations: str) -> str:
         object_annotations = {}
         patch_type = 'add'
         if 'annotations' in object['metadata']:
             object_annotations = object['metadata']['annotations']
-            patch_type  = 'replace'
+            patch_type = 'replace'
 
         annotation_list = annotations.replace(' ', '').split(',')
         for annotation in annotation_list:
