@@ -11,14 +11,15 @@ webhooks:
   sideEffects: None
   admissionReviewVersions: ["v1"]
   rules:
-  - operations: [ "CREATE", "UPDATE" ]
+  - operations:
+      {{- toYaml .Values.annotate.operations | nindent 6 }}
     apiGroups:
       {{- toYaml .Values.annotate.target.apiGroups | nindent 6 }}
     apiVersions:
       {{- toYaml .Values.annotate.target.apiVersions | nindent 6 }}
     resources:
       {{- toYaml .Values.annotate.target.resources | nindent 6 }}
-    scope: "Namespaced"
+    scope: {{ .Values.annotate.target.scope }}
   timeoutSeconds: 20
   clientConfig:
     service:

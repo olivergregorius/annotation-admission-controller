@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   registry: ghcr.io
   repository: olivergregorius/annotation-admission-controller
-  tag: 0.1.7
+  tag: 0.1.0
   pullPolicy: Always
 
 imagePullSecrets: []
@@ -38,8 +38,14 @@ affinity: {}
 
 annotate:
   target:
+    # apiGroups, apiVersions, resources: endpoint definition of the resource, check the [Kubernetes API Reference](https://kubernetes.io/docs/reference/kubernetes-api/) for more information
     apiGroups: [""]
     apiVersions: ["v1"]
     resources: ["persistentvolumeclaims"]
+    # scope: allowed values are "Namespaced", "Cluster" or "*"
+    scope: Namespaced
+  # operations: allowed values are "CREATE", "UPDATE", "DELETE" or "CONNECT"
+  operations: ["CREATE", "UPDATE"]
+  # annotations: map of annotations to be added to the resource
   annotations:
     argocd.argoproj.io/sync-options: Delete=false
