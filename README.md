@@ -1,6 +1,6 @@
 # annotation-admission-controller
 
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/olivergregorius/annotation-admission-controller/test.yml?branch=main&label=Python%20Test&logo=github)](https://github.com/olivergregorius/sun2000_modbus/actions/workflows/build.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/olivergregorius/annotation-admission-controller/test.yml?branch=main&label=Python%20Test&logo=github)](https://github.com/olivergregorius/annotation-admission-controller/actions/workflows/test.yml)
 [![GitHub](https://img.shields.io/github/license/olivergregorius/annotation-admission-controller?label=License)](https://github.com/olivergregorius/annotation-admission-controller/blob/HEAD/LICENSE)
 
 A [Kubernetes Admission Controller](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/) for adding annotations to a Kubernetes
